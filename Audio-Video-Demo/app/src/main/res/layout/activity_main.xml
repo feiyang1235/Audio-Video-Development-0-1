@@ -22,6 +22,14 @@
         android:enabled="true"
         android:text="任务1"
         android:textSize="15sp" />
-
+    <Button
+        android:onClick="onTaskClick2"
+        style="@style/common_blue_button"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:enabled="true"
+        android:text="任务2"
+        android:textSize="15sp" />
 </LinearLayout>
 </ScrollView>

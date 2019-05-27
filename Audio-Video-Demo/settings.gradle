@@ -1,1 +1,1 @@
-include ':app', ':first_problem'
+include ':app', ':first_problem', ':second_problem'

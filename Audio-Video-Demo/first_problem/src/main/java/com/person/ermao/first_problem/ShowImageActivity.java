@@ -17,6 +17,5 @@ public class ShowImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image);
         surfaceView = findViewById(R.id.surface_view);
-
     }
 }
