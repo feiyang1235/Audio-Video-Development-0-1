@@ -63,5 +63,23 @@
                 android:layout_marginTop="20dp"
                 android:text="SurfaceView图片" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.person.ermao.first_problem.CommonSurfaceView
+                android:id="@+id/comm"
+                android:layout_width="300dp"
+                android:layout_height="300dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="CommSurfaceView图片" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

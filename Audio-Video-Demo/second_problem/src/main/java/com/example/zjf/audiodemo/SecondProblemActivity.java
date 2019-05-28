@@ -2,21 +2,15 @@ package com.example.zjf.audiodemo;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.media.AudioRecord;
-import android.media.AudioTrack;
 import android.media.MediaRecorder;
-import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListAdapter;
 
 import com.example.zjf.audiodemo.play.PlayFactory;
 import com.example.zjf.audiodemo.play.PlayInModeStatic;
@@ -24,15 +18,14 @@ import com.example.zjf.audiodemo.play.PlayInModeStream;
 import com.example.zjf.audiodemo.util.PcmToWavUtil;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class SecondProblemActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = SecondProblemActivity.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST = 1001;
 
     private Context context;
@@ -58,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_second);
         context = this;
 
         mBtnStartRecord = (Button) findViewById(R.id.btnStartRecord);
@@ -83,46 +76,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnStartRecord:
-                String strBtnRecord = mBtnStartRecord.getText().toString();
-                if (strBtnRecord.equals(getString(R.string.start_record))) {
-                    mBtnStartRecord.setText(getString(R.string.stop_record));
-                    startRecord();
-                } else {
-                    mBtnStartRecord.setText(getString(R.string.start_record));
-                    stopRecord();
-                }
-                break;
-            case R.id.btnConvert:
-                PcmToWavUtil pcmToWavUtil = new PcmToWavUtil(Consts.SAMPLE_RATE_INHZ, Consts.CHANNEL_CONFIG, Consts.AUDIO_FORMAT);
+        int i = v.getId();
+        if (i == R.id.btnStartRecord) {
+            String strBtnRecord = mBtnStartRecord.getText().toString();
+            if (strBtnRecord.equals(getString(R.string.start_record))) {
+                mBtnStartRecord.setText(getString(R.string.stop_record));
+                startRecord();
+            } else {
+                mBtnStartRecord.setText(getString(R.string.start_record));
+                stopRecord();
+            }
 
-                File pcmFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
-                File wavFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "wfs.wav");
-                if (!wavFile.mkdirs()) {
-                    Log.e(TAG, "WAVFile未创建");
-                }
-                if (wavFile.exists()) {
-                    wavFile.delete();
-                }
-                pcmToWavUtil.pcmToWav(pcmFile.getAbsolutePath(), wavFile.getAbsolutePath());
-                break;
-            case R.id.btnPlay:
-                String strBtnPlay = mBtnPlay.getText().toString();
-                PlayInModeStream playInModeStream = (PlayInModeStream) playFactory.createPlay(PlayFactory.STREAMMODE);
-                PlayInModeStatic playInModeStatic = (PlayInModeStatic) playFactory.createPlay(PlayFactory.STATICMODE);
-                if (strBtnPlay.equals(getString(R.string.start_play))) {
-                    mBtnPlay.setText(getString(R.string.stop_play));
+        } else if (i == R.id.btnConvert) {
+            PcmToWavUtil pcmToWavUtil = new PcmToWavUtil(Consts.SAMPLE_RATE_INHZ, Consts.CHANNEL_CONFIG, Consts.AUDIO_FORMAT);
+
+            File pcmFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "test.pcm");
+            File wavFile = new File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), "wfs.wav");
+            if (!wavFile.mkdirs()) {
+                Log.e(TAG, "WAVFile未创建");
+            }
+            if (wavFile.exists()) {
+                wavFile.delete();
+            }
+            pcmToWavUtil.pcmToWav(pcmFile.getAbsolutePath(), wavFile.getAbsolutePath());
+
+        } else if (i == R.id.btnPlay) {
+            String strBtnPlay = mBtnPlay.getText().toString();
+            PlayInModeStream playInModeStream = (PlayInModeStream) playFactory.createPlay(PlayFactory.STREAMMODE);
+            PlayInModeStatic playInModeStatic = (PlayInModeStatic) playFactory.createPlay(PlayFactory.STATICMODE);
+            if (strBtnPlay.equals(getString(R.string.start_play))) {
+                mBtnPlay.setText(getString(R.string.stop_play));
 //                    playInModeStream.startPlayPcm();
-                    playInModeStatic.startPlayPcm();
-                } else {
-                    mBtnPlay.setText(getString(R.string.start_play));
+                playInModeStatic.startPlayPcm();
+            } else {
+                mBtnPlay.setText(getString(R.string.start_play));
 //                    playInModeStream.stopPlayPcm();
-                    playInModeStatic.stopPlayPcm();
-                }
-                break;
-            default:
-                break;
+                playInModeStatic.stopPlayPcm();
+            }
+
+        } else {
         }
     }
 

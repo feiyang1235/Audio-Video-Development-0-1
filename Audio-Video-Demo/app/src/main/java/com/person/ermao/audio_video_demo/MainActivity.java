@@ -2,24 +2,15 @@ package com.person.ermao.audio_video_demo;
 
 import android.Manifest;
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
-import android.os.Build;
-import android.os.Environment;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.zjf.audiodemo.SecondProblemActivity;
 import com.person.ermao.audio_video_demo.second_problem.ErmaoAudioRecord;
-import com.person.ermao.audio_video_demo.second_problem.PcmToWavUtil;
 import com.person.ermao.first_problem.ShowImageActivity;
-
-import java.io.File;
-import java.io.FileInputStream;
+import com.person.ermao.third_problem.ThirdActivity;
 
 public class MainActivity extends AppCompatActivity {
     private ErmaoAudioRecord record = new ErmaoAudioRecord();
@@ -39,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onTaskClick2(View view) {
-        startActivity(new Intent(this, com.example.zjf.audiodemo.MainActivity.class));
+        startActivity(new Intent(this, SecondProblemActivity.class));
     }
 
+    public void onTaskClick3(View view) {
+        startActivity(new Intent(this,ThirdActivity.class));
+    }
 }
