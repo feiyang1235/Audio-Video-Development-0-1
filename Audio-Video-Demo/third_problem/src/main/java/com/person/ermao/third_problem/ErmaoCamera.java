@@ -60,6 +60,12 @@ public class ErmaoCamera {
             if (open != null) {
                 open.setPreviewDisplay(surfaceHolder);
                 open.startPreview();
+                open.setOneShotPreviewCallback(new Camera.PreviewCallback() {
+                    @Override
+                    public void onPreviewFrame(byte[] data, Camera camera) {
+
+                    }
+                });
             }
         } catch (IOException e) {
             e.printStackTrace();

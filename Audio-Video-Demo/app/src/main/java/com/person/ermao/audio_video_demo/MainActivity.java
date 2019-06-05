@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.zjf.audiodemo.SecondProblemActivity;
 import com.person.ermao.audio_video_demo.second_problem.ErmaoAudioRecord;
 import com.person.ermao.first_problem.ShowImageActivity;
+import com.person.ermao.third_problem.TextureViewActivity;
 import com.person.ermao.third_problem.ThirdActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onTaskClick3(View view) {
-        startActivity(new Intent(this,ThirdActivity.class));
+        startActivity(new Intent(this,TextureViewActivity.class));
     }
 }

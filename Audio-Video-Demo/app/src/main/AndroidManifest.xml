@@ -31,8 +31,12 @@
             android:name="com.person.ermao.first_problem.ShowImageActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.example.zjf.audiodemo.SecondProblemActivity" />
-        <activity android:name="com.person.ermao.third_problem.ThirdActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.person.ermao.third_problem.ThirdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.person.ermao.third_problem.TextureViewActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
