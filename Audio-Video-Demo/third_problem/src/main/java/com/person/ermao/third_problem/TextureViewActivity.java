@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -58,20 +59,6 @@ public class TextureViewActivity extends AppCompatActivity implements TextureVie
                 } else {
                     Toast.makeText(TextureViewActivity.this, "对焦失败", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-        camera.setPreviewCallback(new Camera.PreviewCallback() {
-            @Override
-            public void onPreviewFrame(byte[] data, Camera camera) {
-                Camera.Size previewSize = camera.getParameters().getPreviewSize();
-                YuvImage yuvImage = new YuvImage(data, ImageFormat.NV21, previewSize.width, previewSize.height, null);
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                yuvImage.compressToJpeg(new Rect(0, 0, previewSize.width, previewSize.height), 100, byteArrayOutputStream);
-                byte[] bytes = byteArrayOutputStream.toByteArray();
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
-                icon.setImageBitmap(rotateBitmap(bitmap, getDegree()));
             }
         });
     }
@@ -145,7 +132,23 @@ public class TextureViewActivity extends AppCompatActivity implements TextureVie
 
     @Override
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
+        camera.setPreviewCallback(new Camera.PreviewCallback() {
+            @Override
+            public void onPreviewFrame(byte[] data, Camera camera) {
+                if (data == null || data.length == 0) {
+                    Toast.makeText(TextureViewActivity.this, "没有收到预览数据", Toast.LENGTH_LONG).show();
+                }
+                Camera.Size previewSize = camera.getParameters().getPreviewSize();
+                YuvImage yuvImage = new YuvImage(data, ImageFormat.NV21, previewSize.width, previewSize.height, null);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                yuvImage.compressToJpeg(new Rect(0, 0, previewSize.width, previewSize.height), 100, byteArrayOutputStream);
+                byte[] bytes = byteArrayOutputStream.toByteArray();
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+                icon.setImageBitmap(rotateBitmap(bitmap, getDegree()));
+            }
+        });
     }
 
     @Override
@@ -167,7 +170,11 @@ public class TextureViewActivity extends AppCompatActivity implements TextureVie
     }
 
     public void startTakePic(View view) {
-        takePic();
+//        takePic();
+        ViewGroup.LayoutParams layoutParams = textureView.getLayoutParams();
+        layoutParams.height *= 2;
+        layoutParams.width *= 2;
+        textureView.setLayoutParams(layoutParams);
     }
 
     private void takePic() {

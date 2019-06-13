@@ -37,6 +37,9 @@
         <activity
             android:name="com.person.ermao.third_problem.TextureViewActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.person.ermao.fourth_problem.FourthActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
